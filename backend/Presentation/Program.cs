@@ -60,16 +60,17 @@ builder.Services.AddControllers()
     });
 
 // CORS — allow React frontend
+var allowedOrigins = new List<string> { "http://localhost:5173", "http://localhost:3000" };
+var corsOrigin = Environment.GetEnvironmentVariable("CORS_ORIGIN");
+if (!string.IsNullOrWhiteSpace(corsOrigin))
+    allowedOrigins.Add(corsOrigin);
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
         policy
-            .WithOrigins(
-                "http://localhost:5173",
-                "http://localhost:3000",
-                "https://cafe-lumiere.vercel.app"
-            )
+            .WithOrigins(allowedOrigins.ToArray())
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();

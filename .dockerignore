@@ -1,0 +1,10 @@
+.git/
+.claude/
+memory/
+frontend/
+docs/
+images/
+pr.md
+*.md
+backend/**/bin/
+backend/**/obj/
