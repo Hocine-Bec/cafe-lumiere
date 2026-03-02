@@ -4,12 +4,12 @@
 
 **A full-stack, bilingual restaurant management platform**
 
-.NET 10 Clean Architecture · React 19 + TypeScript · Tailwind CSS v4 · PostgreSQL
+.NET 10 · Clean Architecture · React 19 · TypeScript · Tailwind CSS v4 · PostgreSQL
 
 [![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Tailwind](https://img.shields.io/badge/Tailwind-v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
@@ -19,7 +19,7 @@
 
 ## Overview
 
-Café Lumière is a full-stack restaurant web platform with a customer-facing website and a fully functional admin dashboard. It supports bilingual content in **English (LTR)** and **Arabic (RTL)**, with automatic layout direction switching.
+Café Lumière is a production-ready restaurant web platform combining a premium customer-facing website with a fully functional admin dashboard. It supports bilingual content in **English (LTR)** and **Arabic (RTL)** with automatic layout direction switching.
 
 ---
 
@@ -29,8 +29,8 @@ Café Lumière is a full-stack restaurant web platform with a customer-facing we
 |:----:|:----:|
 | ![Home](images/home-hero.png) | ![Menu](images/menu-page-en.png) |
 
-| Admin Dashboard | Reservations |
-|:---------------:|:------------:|
+| Admin Dashboard | Reservation Management |
+|:---------------:|:----------------------:|
 | ![Dashboard](images/admin-dashboard.png) | ![Reservations](images/admin-reservations.png) |
 
 | Menu Management | Messages Inbox |
@@ -46,17 +46,17 @@ Café Lumière is a full-stack restaurant web platform with a customer-facing we
 ## Features
 
 ### Customer Website
-- **Home** — hero section, featured menu items, testimonials carousel, and interactive location map
+- **Home** — hero section, featured menu items, testimonials, and location map
 - **Menu** — category tabs, item cards with detail modal, bilingual names and descriptions
-- **Reservations** — 3-step form (date & time → guest details → confirmation) with WhatsApp integration
-- **About** — story, values, and team section
-- **Contact** — contact form + info panel with map
+- **Reservations** — 5-step form (date & time → party size → guest details → confirmation → success) with WhatsApp deep link
+- **About** — restaurant story, values, and team section
+- **Contact** — contact form + info panel with embedded map
 
-### Admin Dashboard
-- **Dashboard** — stats cards (today's reservations, pending, total items, unread messages), weekly chart, recent activity feed
-- **Menu management** — full CRUD for items and categories, availability/featured toggles, drag-and-drop reorder
-- **Reservation management** — filterable table (by date, status, name), inline status actions with optimistic updates, detail modal, WhatsApp quick-reply
-- **Messages** — two-panel inbox, mark-as-read, reply via email, delete
+### Admin Panel
+- **Dashboard** — stats overview (today's reservations, pending count, total items, unread messages), weekly chart, recent activity feed
+- **Menu Management** — full CRUD for items and categories, availability and featured toggles, drag-and-drop reorder
+- **Reservation Management** — filterable table (by date and status), inline status updates, detail modal, WhatsApp quick-reply
+- **Messages** — two-panel inbox, mark-as-read, delete
 
 ---
 
@@ -65,30 +65,29 @@ Café Lumière is a full-stack restaurant web platform with a customer-facing we
 ### Backend
 
 | Package | Version | Purpose |
-|:--------|:--------|:--------|
-| .NET / ASP.NET Core | 10.0 | Web API framework |
-| Entity Framework Core | 10.0 | ORM |
-| Npgsql EF Provider | 10.0 | PostgreSQL driver |
-| JWT Bearer Auth | 10.0 | Authentication |
-| BCrypt.Net-Next | 4.1 | Password hashing |
-| Mapster | 7.4 | DTO mapping |
-| FluentValidation | 12.1 | Request validation |
-| Scalar | 2.x | API documentation UI |
-| DotNetEnv | 3.1 | `.env` file loading |
+|:--------|:-------:|:--------|
+| ASP.NET Core | 10.0 | Web API framework |
+| Entity Framework Core + Npgsql | 10.0 | ORM + PostgreSQL driver |
+| JWT Bearer Auth | 10.0 | Stateless authentication |
+| BCrypt.Net-Next | 4.x | Password hashing |
+| Mapster | 7.x | DTO mapping |
+| FluentValidation | 12.x | Request validation |
+| Scalar | 2.x | Interactive API docs UI |
+| DotNetEnv | 3.x | `.env` file loading |
 
-Architecture: **Clean Architecture** — Domain → Application → Infrastructure → Presentation
-Patterns: Repository, Unit of Work, Result Pattern, Dependency Injection
+**Architecture:** Clean Architecture — Domain → Application → Infrastructure → Presentation
+**Patterns:** Repository, Unit of Work, Result Pattern, Dependency Inversion
 
 ### Frontend
 
 | Package | Version | Purpose |
-|:--------|:--------|:--------|
+|:--------|:-------:|:--------|
 | React | 19 | UI framework |
-| TypeScript | 5.9 | Type safety (strict mode) |
-| Vite | 7 | Build tool |
-| Tailwind CSS | v4 | Styling |
+| TypeScript | 5.9 | Strict type safety |
+| Vite | 7 | Build tool + dev server |
+| Tailwind CSS | v4 | Utility-first styling |
 | Framer Motion | 12 | Animations |
-| React Hook Form + Zod | 7 + 4 | Forms and validation |
+| React Hook Form + Zod | 7 + 4 | Forms and schema validation |
 | TanStack Query | 5 | Server state management |
 | Axios | 1 | HTTP client |
 | i18next + react-i18next | 25 + 16 | AR/EN internationalization |
@@ -97,6 +96,7 @@ Patterns: Repository, Unit of Work, Result Pattern, Dependency Injection
 | @dnd-kit | 6/10 | Drag-and-drop reorder |
 | React Leaflet | 5 | Interactive map |
 | react-hot-toast | 2 | Toast notifications |
+| Lucide React | 0.5x | Icon library |
 
 ---
 
@@ -105,22 +105,28 @@ Patterns: Repository, Unit of Work, Result Pattern, Dependency Injection
 ```
 cafe-lumiere/
 ├── backend/
-│   ├── Domain/              # Entities, enums — no dependencies
-│   ├── Application/         # Services, DTOs, interfaces, validators
-│   ├── Infrastructure/      # EF Core, repositories, auth, UoW, seeder
-│   └── Presentation/        # ASP.NET controllers, middleware, Program.cs
+│   ├── Domain/              # Entities, enums — zero external dependencies
+│   ├── Application/         # Services, DTOs, interfaces, validators, mappers
+│   ├── Infrastructure/      # EF Core, repositories, UnitOfWork, AuthService, seeder
+│   └── Presentation/        # Controllers, ResultExtensions, Program.cs
 ├── frontend/
 │   └── src/
-│       ├── components/      # Reusable UI, layout, admin, public components
+│       ├── components/      # ui/, layout/, home/, menu/, reservation/, about/, contact/, admin/
 │       ├── pages/           # public/ and admin/ page components
-│       ├── services/        # Axios API functions
-│       ├── hooks/           # Custom hooks
-│       ├── contexts/        # AuthContext
+│       ├── services/        # Axios API service layer
+│       ├── hooks/           # useAuth, useLanguage
+│       ├── contexts/        # AuthContext (JWT state)
 │       ├── types/           # TypeScript interfaces
-│       ├── i18n/            # en.json and ar.json translations
-│       └── utils/           # Constants, helpers, image URLs
-├── docs/                    # Project documentation
+│       ├── i18n/            # en.json, ar.json, index.ts
+│       └── utils/           # cn, constants, images, demoData
+├── docs/
+│   ├── PRD.md               # Product Requirements Document
+│   ├── SRS.md               # Software Requirements Specification
+│   ├── ARCHITECTURE.md      # System design and technology decisions
+│   └── API.md               # Full API reference
 ├── images/                  # Screenshots
+├── Dockerfile               # Multi-stage build for the backend
+├── railway.json             # Railway deployment configuration
 ├── CafeLumiere.slnx
 └── README.md
 ```
@@ -132,23 +138,23 @@ cafe-lumiere/
 ### Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- [Node.js 18+](https://nodejs.org/)
-- [PostgreSQL 14+](https://www.postgresql.org/download/)
+- [Node.js 20+](https://nodejs.org/)
+- [PostgreSQL 15+](https://www.postgresql.org/download/)
 
 ### Backend
 
 ```bash
-# From the repo root
+# Create and configure your environment file
+cp backend/Presentation/.env.example backend/Presentation/.env
+# Edit .env with your values (see Environment Variables below)
+
+# Run — migrations and seed data apply automatically on first start
 cd backend/Presentation
-
-# Create a .env file (see Environment Variables below)
-
-# Run — migrations and seed data are applied automatically on first start
 dotnet run
 ```
 
-API: `http://localhost:5258`
-API docs (Scalar): `http://localhost:5258/scalar/`
+- API base: `http://localhost:5258`
+- Interactive docs (Scalar): `http://localhost:5258/scalar/`
 
 ### Frontend
 
@@ -158,10 +164,10 @@ npm install
 npm run dev
 ```
 
-App: `http://localhost:5173`
-All `/api/*` requests are proxied to the backend automatically.
+- App: `http://localhost:5173`
+- All `/api/*` requests proxy to the backend automatically via Vite config
 
-### Default Admin Account
+### Default Admin Credentials
 
 Seeded automatically on first run:
 
@@ -177,43 +183,90 @@ Seeded automatically on first run:
 Create `backend/Presentation/.env`:
 
 ```env
-DEFAULTCONNECTION=Host=localhost;Port=5432;Database=cafe-lumiere;Username=postgres;Password=yourpassword;
-JWT_SECRET_KEY=your-secret-key-min-32-characters
-JWT_ISSUER=https://localhost
-JWT_AUDIENCE=https://localhost
-JWT_LIFETIME_MINUTES=60
+DEFAULTCONNECTION=Host=localhost;Port=5432;Database=cafe_lumiere;Username=postgres;Password=yourpassword
+JWT_SECRET_KEY=your-secret-key-minimum-32-characters-long
+JWT_ISSUER=CafeLumiere
+JWT_AUDIENCE=CafeLumiereAdmin
+JWT_LIFETIME_MINUTES=1440
+CORS_ORIGIN=https://your-frontend-domain.vercel.app
 ```
 
 ---
 
 ## API Reference
 
-Explore all endpoints interactively at `/scalar/` when the backend is running.
+Full documentation with request/response schemas is in [`docs/API.md`](docs/API.md).
+Interactive exploration is available at `/scalar/` when the backend is running.
 
 | Method | Endpoint | Auth | Description |
 |:-------|:---------|:----:|:------------|
-| `POST` | `/api/auth/login` | — | Admin login |
-| `POST` | `/api/auth/register` | — | Register a user |
+| `POST` | `/api/auth/register` | — | Register an admin user |
+| `POST` | `/api/auth/login` | — | Authenticate and receive JWT |
 | `GET` | `/api/categories` | — | List all categories |
+| `GET` | `/api/categories/{id}` | — | Get category by ID |
 | `POST` | `/api/categories` | ✓ | Create category |
 | `PUT` | `/api/categories/{id}` | ✓ | Update category |
 | `DELETE` | `/api/categories/{id}` | ✓ | Delete category |
-| `GET` | `/api/menu-items` | — | List all menu items |
-| `GET` | `/api/menu-items/featured` | — | Featured items only |
-| `POST` | `/api/menu-items` | ✓ | Create menu item |
-| `PUT` | `/api/menu-items/{id}` | ✓ | Update menu item |
-| `DELETE` | `/api/menu-items/{id}` | ✓ | Delete menu item |
+| `GET` | `/api/menuitems` | — | List all menu items |
+| `GET` | `/api/menuitems/{id}` | — | Get menu item by ID |
+| `GET` | `/api/menuitems/category/{categoryId}` | — | Items by category |
+| `POST` | `/api/menuitems` | ✓ | Create menu item |
+| `PUT` | `/api/menuitems/{id}` | ✓ | Update menu item |
+| `DELETE` | `/api/menuitems/{id}` | ✓ | Delete menu item |
 | `POST` | `/api/reservations` | — | Submit a reservation |
 | `GET` | `/api/reservations` | ✓ | List all reservations |
-| `PATCH` | `/api/reservations/{id}/status` | ✓ | Update status |
+| `GET` | `/api/reservations/{id}` | ✓ | Get reservation by ID |
+| `GET` | `/api/reservations/date/{date}` | ✓ | Reservations by date |
+| `GET` | `/api/reservations/status/{status}` | ✓ | Reservations by status |
+| `PATCH` | `/api/reservations/{id}/status` | ✓ | Update reservation status |
 | `DELETE` | `/api/reservations/{id}` | ✓ | Delete reservation |
-| `POST` | `/api/contact-messages` | — | Submit contact message |
-| `GET` | `/api/contact-messages` | ✓ | List all messages |
-| `GET` | `/api/contact-messages/unread` | ✓ | Unread messages only |
-| `PATCH` | `/api/contact-messages/{id}/read` | ✓ | Mark as read |
-| `DELETE` | `/api/contact-messages/{id}` | ✓ | Delete message |
+| `POST` | `/api/contactmessages` | — | Submit contact message |
+| `GET` | `/api/contactmessages` | ✓ | List all messages |
+| `GET` | `/api/contactmessages/{id}` | ✓ | Get message by ID |
+| `PATCH` | `/api/contactmessages/{id}/read` | ✓ | Mark message as read |
+| `DELETE` | `/api/contactmessages/{id}` | ✓ | Delete message |
 
-`✓` = requires Bearer token
+`✓` = requires `Authorization: Bearer <token>`
+
+---
+
+## Deployment
+
+### Backend — Railway
+
+1. Add a **PostgreSQL** plugin to your Railway project.
+2. Connect your GitHub repo — Railway auto-detects the `Dockerfile` and `railway.json`.
+3. Set environment variables in the Railway service dashboard:
+
+```env
+DEFAULTCONNECTION     # Copy the connection string from the PostgreSQL plugin
+JWT_SECRET_KEY        # Min 32 characters
+JWT_ISSUER            # CafeLumiere
+JWT_AUDIENCE          # CafeLumiereAdmin
+JWT_LIFETIME_MINUTES  # 1440
+CORS_ORIGIN           # Your Vercel frontend URL
+```
+
+### Frontend — Vercel
+
+1. Import the repository on [Vercel](https://vercel.com).
+2. Set **Root Directory** to `frontend`.
+3. Add environment variable:
+
+```env
+VITE_API_URL=https://your-backend.railway.app
+```
+
+---
+
+## Documentation
+
+| Document | Description |
+|:---------|:------------|
+| [PRD.md](docs/PRD.md) | Product Requirements — personas, functional requirements, user stories, success metrics |
+| [SRS.md](docs/SRS.md) | Software Requirements Specification (IEEE 830) — requirements with traceable IDs, data model, acceptance criteria |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design — Clean Architecture breakdown, auth flow, deployment topology, technology decisions |
+| [API.md](docs/API.md) | Full API reference — all endpoints with request/response schemas and TypeScript types |
 
 ---
 
