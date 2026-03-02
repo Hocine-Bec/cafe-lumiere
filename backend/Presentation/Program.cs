@@ -106,14 +106,17 @@ using (var scope = app.Services.CreateScope())
 // MIDDLEWARE PIPELINE
 // ──────────────────────────────────────────────
 
-// OpenAPI JSON endpoint + Scalar UI
-app.MapOpenApi();
-app.MapScalarApiReference("/scalar/", options =>
+// OpenAPI JSON endpoint + Scalar UI — development only
+if (app.Environment.IsDevelopment())
 {
-    options.Title = "Café Lumière API";
-    options.AddPreferredSecuritySchemes("Bearer");
-    options.AddHttpAuthentication("Bearer", _ => { });
-});
+    app.MapOpenApi();
+    app.MapScalarApiReference("/scalar/", options =>
+    {
+        options.Title = "Café Lumière API";
+        options.AddPreferredSecuritySchemes("Bearer");
+        options.AddHttpAuthentication("Bearer", _ => { });
+    });
+}
 
 // CORS must come before auth
 app.UseCors("AllowFrontend");
