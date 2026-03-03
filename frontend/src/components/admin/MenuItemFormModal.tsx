@@ -23,6 +23,7 @@ const schema = z.object({
   displayOrder: z.coerce.number().int().min(0),
 });
 
+type FormInput = z.input<typeof schema>;
 type FormData = z.infer<typeof schema>;
 
 interface MenuItemFormModalProps {
@@ -53,7 +54,7 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean
 }
 
 export function MenuItemFormModal({ isOpen, onClose, onSubmit, item, categories, isLoading }: MenuItemFormModalProps) {
-  const { register, handleSubmit, reset, watch, control, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, reset, watch, control, formState: { errors } } = useForm<FormInput, unknown, FormData>({
     resolver: zodResolver(schema),
     defaultValues: { isAvailable: true, isFeatured: false, displayOrder: 0, price: 0 },
   });

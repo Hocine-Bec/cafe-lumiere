@@ -50,7 +50,7 @@ export function MessageDetail({ message, onDelete }: MessageDetailProps) {
         </a>
         <Button
           size="sm"
-          variant="outline"
+          variant="ghost"
           onClick={() => onDelete(message.id)}
           className="flex items-center gap-2 text-red-600 border-red-200 hover:bg-red-50 hover:border-red-300"
         >

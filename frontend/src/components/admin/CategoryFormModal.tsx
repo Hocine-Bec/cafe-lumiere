@@ -16,6 +16,7 @@ const schema = z.object({
   isActive: z.boolean(),
 });
 
+type FormInput = z.input<typeof schema>;
 type FormData = z.infer<typeof schema>;
 
 interface CategoryFormModalProps {
@@ -27,7 +28,7 @@ interface CategoryFormModalProps {
 }
 
 export function CategoryFormModal({ isOpen, onClose, onSubmit, category, isLoading }: CategoryFormModalProps) {
-  const { register, handleSubmit, reset, control, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, reset, control, formState: { errors } } = useForm<FormInput, unknown, FormData>({
     resolver: zodResolver(schema),
     defaultValues: { isActive: true, displayOrder: 0 },
   });

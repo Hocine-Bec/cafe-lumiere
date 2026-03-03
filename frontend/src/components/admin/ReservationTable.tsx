@@ -1,11 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { Eye, Trash2, MessageCircle } from 'lucide-react';
-import type { AxiosError } from 'axios';
 import { reservationsApi } from '@/services/api';
 import { DataTable, type Column } from './DataTable';
 import { StatusBadge } from './StatusBadge';
-import type { ReservationResponse, ReservationStatus, ApiError } from '@/types';
+import type { ReservationResponse, ReservationStatus } from '@/types';
 
 const STATUS_NEXT: Record<string, { label: string; status: ReservationStatus; color: string }[]> = {
   Pending: [

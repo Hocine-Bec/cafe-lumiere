@@ -65,7 +65,7 @@ export function MapView({ lat, lng, height = '380px', className = '' }: MapViewP
     <div
       ref={containerRef}
       style={{ height }}
-      className={`w-full rounded-2xl overflow-hidden ${className}`}
+      className={`relative w-full rounded-2xl overflow-hidden isolate ${className}`}
     />
   );
 }
