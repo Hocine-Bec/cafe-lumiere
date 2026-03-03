@@ -63,7 +63,7 @@ builder.Services.AddControllers()
 var allowedOrigins = new List<string> { "http://localhost:5173", "http://localhost:3000" };
 var corsOrigin = Environment.GetEnvironmentVariable("CORS_ORIGIN");
 if (!string.IsNullOrWhiteSpace(corsOrigin))
-    allowedOrigins.Add(corsOrigin);
+    allowedOrigins.Add(corsOrigin.TrimEnd('/'));
 
 builder.Services.AddCors(options =>
 {
