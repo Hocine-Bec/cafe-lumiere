@@ -36,14 +36,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cream px-4">
+    <div className="min-h-dvh flex items-center justify-center bg-cream px-4 py-8">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <h1 className="font-serif text-3xl font-bold text-charcoal">Café Lumière</h1>
           <p className="mt-1 text-sm text-warm-gray">Admin Panel</p>
         </div>
 
-        <div className="rounded-2xl bg-white border border-warm-gray-light shadow-sm p-8">
+        <div className="rounded-2xl bg-white border border-warm-gray-light shadow-sm p-6 sm:p-8">
           <h2 className="text-xl font-semibold text-charcoal mb-6">Sign In</h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">

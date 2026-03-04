@@ -16,11 +16,22 @@ const navItems = [
   { label: 'Messages', to: '/admin/messages', icon: MessageSquare },
 ];
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   const { user, logout } = useAuth();
 
   return (
-    <aside className="flex h-screen w-60 flex-col bg-charcoal text-warm-gray-light">
+    <aside
+      className={cn(
+        'fixed inset-y-0 left-0 z-50 flex w-60 flex-col bg-charcoal text-warm-gray-light transition-transform duration-200 ease-in-out',
+        'lg:static lg:translate-x-0',
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      )}
+    >
       {/* Logo */}
       <div className="flex h-16 items-center px-6 border-b border-charcoal-light">
         <span className="font-serif text-lg font-semibold text-warm-white">
@@ -35,6 +46,7 @@ export function AdminSidebar() {
             key={to}
             to={to}
             end={end}
+            onClick={onClose}
             className={({ isActive }) =>
               cn(
                 'flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors mb-1',
