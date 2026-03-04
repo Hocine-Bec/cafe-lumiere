@@ -15,13 +15,22 @@
 
 </div>
 
----
 
 ## Overview
 
 Café Lumière is a production-ready restaurant web platform combining a premium customer-facing website with a fully functional admin dashboard. It supports bilingual content in **English (LTR)** and **Arabic (RTL)** with automatic layout direction switching.
 
----
+### Live Website
+
+- **Public:** [cafe-lumiere-eta.vercel.app](https://cafe-lumiere-eta.vercel.app)
+- **Admin:** [cafe-lumiere-eta.vercel.app/admin](https://cafe-lumiere-eta.vercel.app/admin)
+
+**Default Admin Credentials**: Seeded automatically on first run:
+
+| Field | Value |
+|:------|:------|
+| Email | `admin@cafe.com` |
+| Password | `Admin123!` |
 
 ## Screenshots
 
@@ -46,57 +55,32 @@ Café Lumière is a production-ready restaurant web platform combining a premium
 ## Features
 
 ### Customer Website
-- **Home** — hero section, featured menu items, testimonials, and location map
-- **Menu** — category tabs, item cards with detail modal, bilingual names and descriptions
-- **Reservations** — 5-step form (date & time → party size → guest details → confirmation → success) with WhatsApp deep link
-- **About** — restaurant story, values, and team section
-- **Contact** — contact form + info panel with embedded map
+- **Home**: hero section, featured menu items, testimonials, and location map
+- **Menu**: category tabs, item cards with detail modal, bilingual names and descriptions
+- **Reservations**: 5-step form (date & time → party size → guest details → confirmation → success) with WhatsApp deep link
+- **About**: restaurant story, values, and team section
+- **Contact**: contact form + info panel with embedded map
 
 ### Admin Panel
-- **Dashboard** — stats overview (today's reservations, pending count, total items, unread messages), weekly chart, recent activity feed
-- **Menu Management** — full CRUD for items and categories, availability and featured toggles, drag-and-drop reorder
-- **Reservation Management** — filterable table (by date and status), inline status updates, detail modal, WhatsApp quick-reply
-- **Messages** — two-panel inbox, mark-as-read, delete
+- **Dashboard**: stats overview (today's reservations, pending count, total items, unread messages), weekly chart, recent activity feed
+- **Menu Management**: full CRUD for items and categories, availability and featured toggles, drag-and-drop reorder
+- **Reservation Management**: filterable table (by date and status), inline status updates, detail modal, WhatsApp quick-reply
+- **Messages**: two-panel inbox, mark-as-read, delete
 
 ---
 
 ## Tech Stack
 
-### Backend
+| Layer            | Technologies                                                           |
+| ---------------- | ---------------------------------------------------------------------- |
+| **Backend**      | .NET 10 / C# 12, ASP.NET Core Web API, PostgreSQL, EF Core 10 + Npgsql |
+| **Auth**         | JWT + BCrypt, FluentValidation, Mapster, Scalar (OpenAPI UI)           |
+| **Frontend**     | React 19, TypeScript (strict), Vite 7, Tailwind CSS v4, Framer Motion  |
+| **Data & Forms** | TanStack Query, React Hook Form + Zod, React Router v7, Axios          |
+| **UI / Other**   | i18next, Leaflet, Recharts                                             |
+| **Infra**        | Backend → Railway (Docker) · Frontend → Vercel                         |
 
-| Package | Version | Purpose |
-|:--------|:-------:|:--------|
-| ASP.NET Core | 10.0 | Web API framework |
-| Entity Framework Core + Npgsql | 10.0 | ORM + PostgreSQL driver |
-| JWT Bearer Auth | 10.0 | Stateless authentication |
-| BCrypt.Net-Next | 4.x | Password hashing |
-| Mapster | 7.x | DTO mapping |
-| FluentValidation | 12.x | Request validation |
-| Scalar | 2.x | Interactive API docs UI |
-| DotNetEnv | 3.x | `.env` file loading |
-
-**Architecture:** Clean Architecture — Domain → Application → Infrastructure → Presentation
-**Patterns:** Repository, Unit of Work, Result Pattern, Dependency Inversion
-
-### Frontend
-
-| Package | Version | Purpose |
-|:--------|:-------:|:--------|
-| React | 19 | UI framework |
-| TypeScript | 5.9 | Strict type safety |
-| Vite | 7 | Build tool + dev server |
-| Tailwind CSS | v4 | Utility-first styling |
-| Framer Motion | 12 | Animations |
-| React Hook Form + Zod | 7 + 4 | Forms and schema validation |
-| TanStack Query | 5 | Server state management |
-| Axios | 1 | HTTP client |
-| i18next + react-i18next | 25 + 16 | AR/EN internationalization |
-| React Router | 7 | Client-side routing |
-| Recharts | 3 | Dashboard charts |
-| @dnd-kit | 6/10 | Drag-and-drop reorder |
-| React Leaflet | 5 | Interactive map |
-| react-hot-toast | 2 | Toast notifications |
-| Lucide React | 0.5x | Icon library |
+The backend follows **Clean Architecture** (Domain / Application / Infrastructure / Presentation).
 
 ---
 
@@ -105,30 +89,24 @@ Café Lumière is a production-ready restaurant web platform combining a premium
 ```
 cafe-lumiere/
 ├── backend/
-│   ├── Domain/              # Entities, enums — zero external dependencies
-│   ├── Application/         # Services, DTOs, interfaces, validators, mappers
-│   ├── Infrastructure/      # EF Core, repositories, UnitOfWork, AuthService, seeder
-│   └── Presentation/        # Controllers, ResultExtensions, Program.cs
+│   ├── Domain/          # Entities, value objects, domain logic
+│   ├── Application/     # Use cases, DTOs, interfaces, validators
+│   ├── Infrastructure/  # EF Core, repositories, auth, external services
+│   └── Presentation/    # ASP.NET Core API controllers & endpoints
 ├── frontend/
 │   └── src/
-│       ├── components/      # ui/, layout/, home/, menu/, reservation/, about/, contact/, admin/
-│       ├── pages/           # public/ and admin/ page components
-│       ├── services/        # Axios API service layer
-│       ├── hooks/           # useAuth, useLanguage
-│       ├── contexts/        # AuthContext (JWT state)
-│       ├── types/           # TypeScript interfaces
-│       ├── i18n/            # en.json, ar.json, index.ts
-│       └── utils/           # cn, constants, images, demoData
-├── docs/
-│   ├── PRD.md               # Product Requirements Document
-│   ├── SRS.md               # Software Requirements Specification
-│   ├── ARCHITECTURE.md      # System design and technology decisions
-│   └── API.md               # Full API reference
-├── images/                  # Screenshots
-├── Dockerfile               # Multi-stage build for the backend
-├── railway.json             # Railway deployment configuration
-├── CafeLumiere.slnx
-└── README.md
+│       ├── pages/
+│       │   ├── public/  # HomePage, MenuPage, ReservationPage, AboutPage, ContactPage
+│       │   └── admin/   # LoginPage, DashboardPage, MenuManagement, Reservations, Messages
+│       ├── components/  # Reusable UI & feature components
+│       ├── services/    # API client (api.ts)
+│       ├── contexts/    # AuthContext
+│       ├── hooks/       # Custom React hooks
+│       ├── types/       # TypeScript interfaces
+│       └── utils/       # Constants, helpers, image URLs
+├── docs/                # API.md, ARCHITECTURE.md, PRD.md, SRS.md
+├── Dockerfile           # Multi-stage build (SDK → ASP.NET runtime)
+└── railway.json         # Railway deployment config
 ```
 
 ---
@@ -136,128 +114,72 @@ cafe-lumiere/
 ## Getting Started
 
 ### Prerequisites
-
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- [Node.js 20+](https://nodejs.org/)
-- [PostgreSQL 15+](https://www.postgresql.org/download/)
+- [Node.js 20+](https://nodejs.org) (or Bun)
+- PostgreSQL instance
 
 ### Backend
 
 ```bash
-# Create and configure your environment file
-cp backend/Presentation/.env.example backend/Presentation/.env
-# Edit .env with your values (see Environment Variables below)
-
-# Run — migrations and seed data apply automatically on first start
+# Navigate to the Presentation layer
 cd backend/Presentation
-dotnet run
-```
 
-- API base: `http://localhost:5258`
-- Interactive docs (Scalar): `http://localhost:5258/scalar/`
+# Create a .env file with the required variables (see Environment Variables)
+cp .env.example .env
+
+# Restore dependencies & apply migrations
+dotnet restore
+dotnet ef database update
+
+# Run the API
+dotnet run
+# API available at http://localhost:5258
+# OpenAPI UI at http://localhost:5258/scalar/
+```
 
 ### Frontend
 
 ```bash
 cd frontend
+
+# Install dependencies
 npm install
+
+# Start the dev server (proxies /api to http://localhost:5258)
 npm run dev
+# App available at http://localhost:5173
 ```
 
-- App: `http://localhost:5173`
-- All `/api/*` requests proxy to the backend automatically via Vite config
-
-### Default Admin Credentials
-
-Seeded automatically on first run:
-
-| Field | Value |
-|:------|:------|
-| Email | `admin@cafe.com` |
-| Password | `Admin123!` |
-
----
 
 ## Environment Variables
 
-Create `backend/Presentation/.env`:
+### Backend (`backend/Presentation/.env`)
 
-```env
-DEFAULTCONNECTION=Host=localhost;Port=5432;Database=cafe_lumiere;Username=postgres;Password=yourpassword
-JWT_SECRET_KEY=your-secret-key-minimum-32-characters-long
-JWT_ISSUER=CafeLumiere
-JWT_AUDIENCE=CafeLumiereAdmin
-JWT_LIFETIME_MINUTES=1440
-CORS_ORIGIN=https://your-frontend-domain.vercel.app
-```
+| Variable               | Description                                 |
+| ---------------------- | ------------------------------------------- |
+| `DEFAULTCONNECTION`    | PostgreSQL connection string                |
+| `JWT_SECRET_KEY`       | JWT signing secret                          |
+| `JWT_ISSUER`           | JWT issuer URL                              |
+| `JWT_AUDIENCE`         | JWT audience URL                            |
+| `JWT_LIFETIME_MINUTES` | Token expiry in minutes                     |
+| `CORS_ORIGIN`          | Allowed frontend origin (no trailing slash) |
 
----
+### Frontend
 
-## API Reference
+| Variable | Description |
+|---|---|
+| `VITE_API_URL` | Backend API base URL (production) |
 
-Full documentation with request/response schemas is in [`docs/API.md`](docs/API.md).
-Interactive exploration is available at `/scalar/` when the backend is running.
-
-| Method | Endpoint | Auth | Description |
-|:-------|:---------|:----:|:------------|
-| `POST` | `/api/auth/register` | — | Register an admin user |
-| `POST` | `/api/auth/login` | — | Authenticate and receive JWT |
-| `GET` | `/api/categories` | — | List all categories |
-| `GET` | `/api/categories/{id}` | — | Get category by ID |
-| `POST` | `/api/categories` | ✓ | Create category |
-| `PUT` | `/api/categories/{id}` | ✓ | Update category |
-| `DELETE` | `/api/categories/{id}` | ✓ | Delete category |
-| `GET` | `/api/menuitems` | — | List all menu items |
-| `GET` | `/api/menuitems/{id}` | — | Get menu item by ID |
-| `GET` | `/api/menuitems/category/{categoryId}` | — | Items by category |
-| `POST` | `/api/menuitems` | ✓ | Create menu item |
-| `PUT` | `/api/menuitems/{id}` | ✓ | Update menu item |
-| `DELETE` | `/api/menuitems/{id}` | ✓ | Delete menu item |
-| `POST` | `/api/reservations` | — | Submit a reservation |
-| `GET` | `/api/reservations` | ✓ | List all reservations |
-| `GET` | `/api/reservations/{id}` | ✓ | Get reservation by ID |
-| `GET` | `/api/reservations/date/{date}` | ✓ | Reservations by date |
-| `GET` | `/api/reservations/status/{status}` | ✓ | Reservations by status |
-| `PATCH` | `/api/reservations/{id}/status` | ✓ | Update reservation status |
-| `DELETE` | `/api/reservations/{id}` | ✓ | Delete reservation |
-| `POST` | `/api/contactmessages` | — | Submit contact message |
-| `GET` | `/api/contactmessages` | ✓ | List all messages |
-| `GET` | `/api/contactmessages/{id}` | ✓ | Get message by ID |
-| `PATCH` | `/api/contactmessages/{id}/read` | ✓ | Mark message as read |
-| `DELETE` | `/api/contactmessages/{id}` | ✓ | Delete message |
-
-`✓` = requires `Authorization: Bearer <token>`
-
----
 
 ## Deployment
 
-### Backend — Railway
+| Service | Platform | Config |
+|---|---|---|
+| Backend | Railway | `Dockerfile` · `railway.json` |
+| Frontend | Vercel | `frontend/vercel.json` (SPA rewrite rule) |
 
-1. Add a **PostgreSQL** plugin to your Railway project.
-2. Connect your GitHub repo — Railway auto-detects the `Dockerfile` and `railway.json`.
-3. Set environment variables in the Railway service dashboard:
+The Dockerfile uses a multi-stage build: compiles with the .NET SDK image, then runs on the lighter ASP.NET runtime image on port `8080`.
 
-```env
-DEFAULTCONNECTION     # Copy the connection string from the PostgreSQL plugin
-JWT_SECRET_KEY        # Min 32 characters
-JWT_ISSUER            # CafeLumiere
-JWT_AUDIENCE          # CafeLumiereAdmin
-JWT_LIFETIME_MINUTES  # 1440
-CORS_ORIGIN           # Your Vercel frontend URL
-```
-
-### Frontend — Vercel
-
-1. Import the repository on [Vercel](https://vercel.com).
-2. Set **Root Directory** to `frontend`.
-3. Add environment variable:
-
-```env
-VITE_API_URL=https://your-backend.railway.app
-```
-
----
 
 ## Documentation
 
@@ -268,16 +190,6 @@ VITE_API_URL=https://your-backend.railway.app
 | [ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design — Clean Architecture breakdown, auth flow, deployment topology, technology decisions |
 | [API.md](docs/API.md) | Full API reference — all endpoints with request/response schemas and TypeScript types |
 
----
-
 ## License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-
-Built by [Hocine Bechebil](https://www.linkedin.com/in/hocine-bechebil/)
-
-</div>
+MIT © 2026 [Hocine Bechebil](https://github.com/hocine-bechebil)
